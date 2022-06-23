@@ -225,6 +225,7 @@ SELECT
     DECODE(sal_cd, '100001', '기본급여', '100002', '보너스급여', '기타') AS sal_name
 FROM tb_sal;
 
+
 -- # 널 관련 함수
 -- NVL(expr1, expr2)
 -- expr1: Null을 가질 수 있는 값이나 표현식
@@ -248,15 +249,21 @@ WHERE emp_nm = '김회장'
 
 
 SELECT 
-    NVL(MAX(emp_nm), '존재안함') AS emp_nm
+--    emp_nm
+--    NVL(emp_nm, '존재안함') AS emp_nm 
+    NVL(MAX(emp_nm), '존재안함') AS emp_nm 
+    -- NVL은 null을 '존재안함'으로 바꾼다. 공집합을 '존재안함'으로 바꾸는게 아니다
+    -- 공집합도 바꿔주기 위해 MAX를 같이 써준다
 FROM tb_emp
-WHERE emp_nm = '박찬호';
+WHERE emp_nm = '박찬호'; -- 없는 사람을 '존재안함'으로 바꾸기 위한 것
+
 
 -- NVL2(expr1, expr2, expr3)
 -- expr1의 값이 Null이 아니면 expr2를 반환, Null이면 expr3를 반환
 SELECT 
     emp_nm,
     NVL2(direct_manager_emp_no, '일반사원', '회장님') AS 직위
+    -- 회장님은 직속상사가 없다
 FROM tb_emp;
 
 -- NULLIF(expr1, expr2)
@@ -268,6 +275,7 @@ FROM dual;
 SELECT
     NULLIF('박찬호', '박지성')
 FROM dual;
+
 
 -- COALESCE(expr1, ...)
 -- 많은 표현식 중 Null이 아닌 값이 최초로 발견되면 해당 값을 리턴
