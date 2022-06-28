@@ -166,10 +166,76 @@ AND 월 IN ('11', '12', '03', '04', '05')
 -- 보기 3
 SELECT SUM(매출금액) AS 매출금액합계
 FROM 월별매출
-WHERE 년 IN ('2014', '2015')
-AND 월 BETWEEN '03' AND '12'
+WHERE (년 = '2014' OR 년 = '2015')
+AND (월 BETWEEN '01' AND '03' OR 월 BETWEEN '11' AND '12')
 ;
--- -> 39000
+-- -> 55000
+
+-- 보기 4
+SELECT SUM(매출금액) AS 매출금액합계
+FROM 월별매출
+WHERE (년 = '2014' AND 월 BETWEEN '11' AND '12')
+OR    (년 = '2015' AND 월 BETWEEN '01' AND '03')
+;
+-- -> 30000
+
+
+
+
+-- 39번
+DROP TABLE SVC_JOIN;
+
+CREATE TABLE SVC_JOIN (
+    CUST_ID VARCHAR2(10) NOT NULL,
+    SVC_ID VARCHAR2(5) NOT NULL,
+    JOIN_YMD VARCHAR2(8) NOT NULL,
+    JOIN_HH VARCHAR2(4) NOT NULL,
+    
+    SVC_START_DATE DATE NULL,
+    SVC_END_DATE DATE NULL
+);          
+
+--INSERT INTO SVC_JOIN VALUES ();
+
+SELECT
+    *
+FROM SVC_JOIN; 
+
+
+
+-- 96번
+DROP TABLE 사원;
+
+CREATE TABLE 사원 (
+    사번 VARCHAR2(3) PRIMARY KEY,
+    이름 VARCHAR2(3),
+    나이 NUMBER(2)
+);  
+
+DROP TABLE 가족;
+
+CREATE TABLE 가족 (
+    
+); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
